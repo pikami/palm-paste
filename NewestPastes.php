@@ -8,7 +8,7 @@
           while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 			$title = $row['title'];
 			if(strlen($title)>25)$title = substr($title,0,25)."...";
-			echo "<a href=\"".$row['id']."\" class=\"list-group-item\">".$title."</a>";
+			echo "<a href=\"".$row['uid']."\" class=\"list-group-item\">".$title."</a>";
           }
 		?>
 	  </div>

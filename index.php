@@ -31,11 +31,9 @@
 if (isset($_GET["page"])){
   if($_GET["page"] == "create"){
     include "NewPaste.php";
-  } else if (is_numeric($_GET["page"])) {
-	  $id = $_GET["page"];
-	  include "ViewPaste.php";
   } else {
-    echo "The page does not exist";
+	  $uid = $_GET["page"];
+	  include "ViewPaste.php";
   }
 } else {
   include "NewPaste.php";

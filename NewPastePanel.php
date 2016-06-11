@@ -10,7 +10,27 @@
         <textarea class="form-control" rows="5" id="text" name="text"></textarea>
       </div>
 	  <input type='hidden' name='type' value='paste'></input>
-      <button type="submit" class="btn btn-default">Submit</button>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-6">
+	        <!-- Submit -->
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+          <div class="col-sm-6">
+            <!-- Expiry -->
+	        <div class="form-group">
+              <label for="expire">Expiration:</label>
+              <select class="form-control" id="expire" name="expire">
+                <option>Never</option>
+                <option value="600">10 Minutes</option>
+                <option value="3600">1 Hour</option>
+                <option value="86400">1 Day</option>
+              </select>
+            </div>
+	        <!-- END Expiry -->
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 </div>

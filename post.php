@@ -34,12 +34,23 @@ if(isset($_POST["type"])){
 		if(isset($_POST["title"]))
 			$title = $_POST["title"];
 		$uid = generate_uid();
+		$created = time();
+		$expire = 0;
+		if(isset($_POST["expire"]) && is_numeric($_POST["expire"]))
+			$expire = $created + $_POST["expire"];
 		/* Add paste to database */
-		$stmt = $conn->prepare("INSERT INTO pastes (uid,title,text)
-			VALUES (:uid, :tit, :txt)");
+		$QuerySTR = "INSERT INTO pastes (uid,title,text,created)
+			VALUES (:uid, :tit, :txt, :cre)";
+		if($expire!=0)
+			$QuerySTR = "INSERT INTO pastes (uid,title,text,created,expire)
+			VALUES (:uid, :tit, :txt, :cre, :exp)";
+		$stmt = $conn->prepare($QuerySTR);
+		if($expire!=0)
+			$stmt->bindParam(':exp', $expire);
 		$stmt->bindParam(':uid', $uid);
 		$stmt->bindParam(':tit', $title);
 		$stmt->bindParam(':txt', $text);
+		$stmt->bindParam(':cre', $created);
 		$stmt->execute();
 		$conn = null; //close connection to database
 		header("Location: ".$uid);

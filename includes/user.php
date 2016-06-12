@@ -1,7 +1,6 @@
 <?php
 function GetUsersIDBySession($sid,$skey){
 	include "config/config.php";
-	//SELECT * FROM pastes WHERE uid=
 	$stmt = $conn->prepare("SELECT uid FROM sessions WHERE id=:sid AND skey=:skey");
 	$stmt->bindParam(':skey', $skey);
 	$stmt->bindParam(':sid', $sid);
@@ -27,7 +26,17 @@ function UnsetBrowserCookies(){
 	setcookie("pp_sid", '', time() - 3600);
 	setcookie("pp_skey", '', time() - 3600);
 }
-function GetUsernameByID(){
-	//Placeholder
+function GetUserByID($id){
+	include "config/config.php";
+	$stmt = $conn->prepare("SELECT * FROM users WHERE id=:id");
+	$stmt->bindParam(':id', $id);
+	$stmt->execute();
+	if($result = $stmt->fetch()){
+		$conn = null;
+		return $result;
+	} else {
+		$conn = null;
+		return array(-1,-1,-1,-1);
+	}
 }
 ?>

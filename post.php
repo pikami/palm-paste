@@ -31,26 +31,34 @@ if(isset($_POST["type"])){
 		/* Set paste details */
 		$title = "Untitled";
 		$text = $_POST["text"];
+		$exposure = 0;
 		if(isset($_POST["title"]))
 			$title = $_POST["title"];
+		if(isset($_POST["exposure"]) && is_numeric($_POST["exposure"]))
+			$$exposure = $_POST["exposure"];
 		$uid = generate_uid();
 		$created = time();
 		$expire = 0;
 		if(isset($_POST["expire"]) && is_numeric($_POST["expire"]))
 			$expire = $created + $_POST["expire"];
+		$owner = 0;
+		if(isset($_POST["asguest"]) && $_POST["asguest"]=="on")
+			$owner = 0;
+		else if(isset($_COOKIE["pp_sid"]) && isset($_COOKIE["pp_skey"])){
+			include "includes/user.php";
+			$owner = GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]);
+		}
 		/* Add paste to database */
-		$QuerySTR = "INSERT INTO pastes (uid,title,text,created)
-			VALUES (:uid, :tit, :txt, :cre)";
-		if($expire!=0)
-			$QuerySTR = "INSERT INTO pastes (uid,title,text,created,expire)
-			VALUES (:uid, :tit, :txt, :cre, :exp)";
+		$QuerySTR = "INSERT INTO pastes (uid,title,text,created,expire,exposure,owner)
+			VALUES (:uid, :tit, :txt, :cre, :exp, :exposure, :own)";
 		$stmt = $conn->prepare($QuerySTR);
-		if($expire!=0)
-			$stmt->bindParam(':exp', $expire);
+		$stmt->bindParam(':exp', $expire);
 		$stmt->bindParam(':uid', $uid);
 		$stmt->bindParam(':tit', $title);
 		$stmt->bindParam(':txt', $text);
 		$stmt->bindParam(':cre', $created);
+		$stmt->bindParam(':exposure', $exposure);
+		$stmt->bindParam(':own', $owner);
 		$stmt->execute();
 		$conn = null; //close connection to database
 		header("Location: ".$uid);

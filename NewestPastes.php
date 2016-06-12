@@ -4,7 +4,7 @@
       <div class="list-group">
 	    <?php
 		  include "config/config.php";
-		  $stmt = $conn->query('SELECT * FROM pastes ORDER BY id DESC LIMIT 5');
+		  $stmt = $conn->query('SELECT * FROM pastes WHERE exposure=0 ORDER BY id DESC LIMIT 5');
           while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 			$title = $row['title'];
 			if(strlen($title)>25)$title = substr($title,0,25)."...";

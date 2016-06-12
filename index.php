@@ -11,7 +11,7 @@
 <body>
 <!-- NavBar -->
  <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
+  <div class="container">
     <div class="navbar-header">
       <a class="navbar-brand" href="index.php">Palm-Paste</a>
     </div>
@@ -27,10 +27,20 @@
 		if(isset($_COOKIE["pp_sid"]) && isset($_COOKIE["pp_skey"]))
 		  $userID = GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]);
 	    if($userID == -1){
-			echo "<li><a href=\"#\"><span class=\"glyphicon glyphicon-user\"></span> Sign Up</a></li>";
+			echo "<li><a href=\"signup\"><span class=\"glyphicon glyphicon-user\"></span> Sign Up</a></li>";
 			echo "<li><a data-toggle=\"modal\" data-target=\"#LoginPopup\" href=\"#\"><span class=\"glyphicon glyphicon-log-in\"></span> Login</a></li>";
 		} else {
-			echo "<li><a href=\"login.php?logout=1\"><span class=\"glyphicon glyphicon-log-out\"></span> Logout</a></li>";
+			$user = GetUserByID($userID);
+			echo '
+			<li class="dropdown">
+				<a class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" href="#"> '.$user[1].'<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="#">Placeholder</a></li>
+					<li><a href="#">Placeholder</a></li>
+					<li><a href="logout">Logout</a></li>
+				</ul>
+			</li>
+			';
 		}
 	  ?>
     </ul>
@@ -78,6 +88,11 @@ if (isset($_GET["page"])){
     include "NewPaste.php";
   } else if($_GET["page"] == "login"){
     include "login.php";
+  } else if($_GET["page"] == "logout"){
+	  header("Location: login.php?logout=1");
+	  die();
+  } else if($_GET["page"] == "signup"){
+	  include "signup.php";
   } else {
 	  $uid = $_GET["page"];
 	  include "ViewPaste.php";

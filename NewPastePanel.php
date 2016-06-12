@@ -13,6 +13,10 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-6">
+		    <!-- Posting as guest -->
+			<div class="checkbox">
+			  <label><input type="checkbox" name="asguest">Post as guest</label>
+			</div>
 	        <!-- Submit -->
             <button type="submit" class="btn btn-default">Submit</button>
           </div>
@@ -27,7 +31,24 @@
                 <option value="86400">1 Day</option>
               </select>
             </div>
-	        <!-- END Expiry -->
+			<!-- Type -->
+			<div class="form-group">
+              <label for="exposure">Type:</label>
+              <select class="form-control" id="exposure" name="exposure">
+                <option value="0">Public</option>
+                <option value="1">Unlisted</option>
+				<?php
+				  include_once "includes/user.php";
+				  $userID = -1;
+		          if(isset($_COOKIE["pp_sid"]) && isset($_COOKIE["pp_skey"]))
+		            $userID = GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]);
+				  if($userID==-1)
+				    print '<option value="2" disabled>Private (Members only)</option>';
+				  else print '<option value="2" >Private</option>';
+				?>
+              </select>
+            </div>
+	        <!-- END Type -->
           </div>
         </div>
       </div>

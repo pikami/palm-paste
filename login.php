@@ -14,8 +14,7 @@ if(isset($_GET["logout"])){
 		UnsetBrowserCookies();
 	}
 	header("Location: index.php");
-}
-if(isset($_POST["type"])){
+} else if(isset($_POST["type"])) {
 	if($_POST["type"]=="login" && isset($_POST["user"]) && isset($_POST["pwd"])){
 		//Get options
 		$user = $_POST["user"];
@@ -28,7 +27,7 @@ if(isset($_POST["type"])){
 		$stmt = $conn->prepare('SELECT * FROM users WHERE user=?');
 		$stmt->execute(array($user));
 		if($result = $stmt->fetch(PDO::FETCH_ASSOC)){
-			if (password_verify($pwd, $result["password"])){ //$hash = password_hash($pwd ,CRYPT_BLOWFISH);
+			if (password_verify($pwd, $result["password"])){
 				$skey = generate_skey();
 				$stmt = $conn->prepare("INSERT INTO sessions (skey, uid)
 					VALUES (:skey, :uid)");
@@ -51,5 +50,52 @@ if(isset($_POST["type"])){
 		} else echo "Fail!";		//TODO: No user or SQL fail.
 		$conn = null;
 	}
+	if($_POST["type"]=="register" && isset($_POST["user"]) && isset($_POST["pwd"])){
+		//Get options
+		$user = $_POST["user"];
+		$pwd = $_POST["pwd"];
+		$hash = password_hash($pwd ,CRYPT_BLOWFISH);
+		//Register the user
+		include "config/config.php";
+		$stmt = $conn->prepare("INSERT INTO users (user,password)
+			VALUES (:user, :pwd)");
+		$stmt->bindParam(':user', $user);
+		$stmt->bindParam(':pwd', $hash);
+		if($stmt->execute()){
+			header("Location: login");
+		} else {
+			echo "Fail!";
+		}
+		$conn = null;
+	}
+} else {
+	echo '
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">Login</div>
+				<div class="panel-body">
+	';
+	echo '
+	<form role="form" method="POST" action="login">
+          <div class="form-group">
+            <label for="user">Username:</label>
+            <input type="user" class="form-control" id="user" name="user">
+          </div>
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="pwd" name="pwd">
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" name="remember"> Remember me</label>
+          </div>
+		  <input type=\'hidden\' name=\'type\' value=\'login\'></input>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+	';
+	echo '
+			</div>
+		</div>
+	</div>
+	';
 }
 ?>

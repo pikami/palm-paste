@@ -12,7 +12,7 @@ function generate_uid () {
 		$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 		$name  = '';
 		for ($i = 0; $i < 8; $i++) {
-			$name .= $chars[mt_rand(0, 25)];
+			$name .= $chars[mt_rand(0, 61)];
 			// $chars string length is hardcoded, should use a variable to store it?
 		}
 		// Check if a paste with the same uid does already exist in the database

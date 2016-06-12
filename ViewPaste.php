@@ -8,7 +8,7 @@ if(isset($uid)){
 	$stmt = $conn->query('SELECT * FROM pastes WHERE uid="'.$uid.'"');
 	if($result = $stmt->fetch(PDO::FETCH_ASSOC)){
 		$conn = null;
-		if($result["exposure"]==2 && $result["owner"]!=GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"])){
+		if($result["exposure"]==2 && isset($_COOKIE["pp_sid"]) && isset($_COOKIE["pp_skey"]) && $result["owner"]!=GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"])){
 			echo "<h1>This paste is private</h1>";
 			die();
 		}

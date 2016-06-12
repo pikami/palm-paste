@@ -55,8 +55,22 @@ if(isset($_GET["logout"])){
 		$user = $_POST["user"];
 		$pwd = $_POST["pwd"];
 		$hash = password_hash($pwd ,CRYPT_BLOWFISH);
-		//Register the user
+		//Does this user exist
 		include "config/config.php";
+		$stmt = $conn->prepare('SELECT * FROM users WHERE user=?');
+		$stmt->execute(array($user));
+		if($result = $stmt->fetch(PDO::FETCH_ASSOC)){
+			echo "<div class=\"container\"><h2>User allready exists!</h2></div>";
+			$conn = null;
+			die();
+		}
+		//Did the person enter a password
+		if($pwd==""){
+			echo "<div class=\"container\"><h2>You need a password to singup!</h2></div>";
+			$conn = null;
+			die();
+		}
+		//Register the user
 		$stmt = $conn->prepare("INSERT INTO users (user,password)
 			VALUES (:user, :pwd)");
 		$stmt->bindParam(':user', $user);

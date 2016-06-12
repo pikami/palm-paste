@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  
+  <script type="text/javascript" src="js/jquery.dynatable.js"></script>
+  <link href="css/jquery.dynatable.css" rel="stylesheet">
+  <script>$(document).ready(function(){$('#tablepastes').dynatable();});</script>
 </head>
 <body>
 <!-- NavBar -->
@@ -35,8 +39,7 @@
 			<li class="dropdown">
 				<a class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" href="#"> '.$user[1].'<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="#">Placeholder</a></li>
-					<li><a href="#">Placeholder</a></li>
+					<li><a href="mypastes">My pastes</a></li>
 					<li><a href="logout">Logout</a></li>
 				</ul>
 			</li>
@@ -86,6 +89,8 @@
 if (isset($_GET["page"])){
   if($_GET["page"] == "create"){
     include "NewPaste.php";
+  } else if($_GET["page"] == "mypastes"){
+    include "MyPastes.php";
   } else if($_GET["page"] == "login"){
     include "login.php";
   } else if($_GET["page"] == "logout"){

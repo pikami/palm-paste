@@ -6,9 +6,9 @@
 		  include "config/config.php";
 		  $stmt = $conn->query('SELECT * FROM pastes WHERE exposure=0 ORDER BY id DESC LIMIT 5');
           while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-			$title = $row['title'];
+			$title = htmlspecialchars($row['title'], ENT_QUOTES, 'UTF-8');
 			if(strlen($title)>25)$title = substr($title,0,25)."...";
-			echo "<a href=\"".$row['uid']."\" class=\"list-group-item\">".$title."</a>";
+			echo "<a href=\"".htmlspecialchars($row['uid'], ENT_QUOTES, 'UTF-8')."\" class=\"list-group-item\">".$title."</a>";
           }
 		?>
 	  </div>

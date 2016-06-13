@@ -37,7 +37,7 @@
 			$user = GetUserByID($userID);
 			echo '
 			<li class="dropdown">
-				<a class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" href="#"> '.$user[1].'<span class="caret"></span></a>
+				<a class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" href="#"> '.htmlspecialchars($user[1], ENT_QUOTES, 'UTF-8').'<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="mypastes">My pastes</a></li>
 					<li><a href="logout">Logout</a></li>

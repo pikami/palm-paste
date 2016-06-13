@@ -21,9 +21,9 @@ if($stmt->rowCount()>0){
 	printf('<tbody>');
 	while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 		$title = $row['title'];
-		printf('<tr><td style="text-align: left;">'.$row["title"].'</td>');
+		printf('<tr><td style="text-align: left;">'.htmlspecialchars($row["title"], ENT_QUOTES, 'UTF-8').'</td>');
 		printf('<td style="text-align: left;">'.date('Y-m-d',$row["created"]).'</td>');
-		printf('<td style="text-align: right;"><a href="'.$row["uid"].'">'.$row["uid"].'</a></td></tr>');
+		printf('<td style="text-align: right;"><a href="'.htmlspecialchars($row["uid"], ENT_QUOTES, 'UTF-8').'">'.htmlspecialchars($row["uid"], ENT_QUOTES, 'UTF-8').'</a></td></tr>');
 	}
 	printf('</tbody></talbe>');
 } else {

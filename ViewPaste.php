@@ -12,8 +12,8 @@ if(isset($uid)){
 			echo "<h1>This paste is private</h1>";
 			die();
 		}
-		echo "<h1>".$result["title"]."</h1>";
-		echo "<textarea class=\"form-control\" rows=\"5\" disabled=\"true\">".$result["text"]."</textarea>";
+		echo "<h1>".htmlspecialchars($result["title"], ENT_QUOTES, 'UTF-8')."</h1>";
+		echo "<textarea class=\"form-control\" rows=\"5\" disabled=\"true\">".htmlspecialchars($result["text"], ENT_QUOTES, 'UTF-8')."</textarea>";
 	}
 	else echo "Paste does not exist";
 	$conn = null;

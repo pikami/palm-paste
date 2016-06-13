@@ -11,6 +11,9 @@
   <script type="text/javascript" src="js/jquery.dynatable.js"></script>
   <link href="css/jquery.dynatable.css" rel="stylesheet">
   <script>$(document).ready(function(){$('#tablepastes').dynatable();});</script>
+  
+  <!-- Highlight scripts -->
+  <?php include "includes/highlight.php"; ?>
 </head>
 <body>
 <!-- NavBar -->

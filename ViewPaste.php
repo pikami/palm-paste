@@ -13,12 +13,17 @@ if(isset($uid)){
 			die();
 		}
 		echo "<h1>".htmlspecialchars($result["title"], ENT_QUOTES, 'UTF-8')."</h1>";
+		echo "<pre class=\"brush: ".$_HL."\">";
+		echo htmlspecialchars($result["text"], ENT_QUOTES, 'UTF-8')."</pre><pb>";
 		echo "<textarea class=\"form-control\" rows=\"5\" disabled=\"true\">".htmlspecialchars($result["text"], ENT_QUOTES, 'UTF-8')."</textarea>";
 	}
 	else echo "Paste does not exist";
 	$conn = null;
 } else echo "Error: id not set";
 ?>
+			<script type="text/javascript">
+				SyntaxHighlighter.all()
+			</script>
 		</div>
 	</div>
 </div>

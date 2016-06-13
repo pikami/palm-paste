@@ -42,6 +42,9 @@ if(isset($_POST["type"])){
 		if(isset($_POST["expire"]) && is_numeric($_POST["expire"]))
 			$expire = $created + $_POST["expire"];
 		$owner = 0;
+		$syntax = "plain";
+		if(isset($_POST["syntax"]))
+			$syntax=$_POST["syntax"];
 		if(isset($_POST["asguest"]) && $_POST["asguest"]=="on")
 			$owner = 0;
 		else if(isset($_COOKIE["pp_sid"]) && isset($_COOKIE["pp_skey"])){
@@ -49,8 +52,8 @@ if(isset($_POST["type"])){
 			$owner = GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]);
 		}
 		/* Add paste to database */
-		$QuerySTR = "INSERT INTO pastes (uid,title,text,created,expire,exposure,owner)
-			VALUES (:uid, :tit, :txt, :cre, :exp, :exposure, :own)";
+		$QuerySTR = "INSERT INTO pastes (uid,title,text,created,expire,exposure,owner,highlight)
+			VALUES (:uid, :tit, :txt, :cre, :exp, :exposure, :own, :hl)";
 		$stmt = $conn->prepare($QuerySTR);
 		$stmt->bindParam(':exp', $expire);
 		$stmt->bindParam(':uid', $uid);
@@ -59,6 +62,7 @@ if(isset($_POST["type"])){
 		$stmt->bindParam(':cre', $created);
 		$stmt->bindParam(':exposure', $exposure);
 		$stmt->bindParam(':own', $owner);
+		$stmt->bindParam(':hl', $syntax);
 		$stmt->execute();
 		$conn = null; //close connection to database
 		header("Location: ".$uid);

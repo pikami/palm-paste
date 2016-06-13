@@ -31,6 +31,15 @@
                 <option value="86400">1 Day</option>
               </select>
             </div>
+			<!-- Syntax Highlight -->
+	        <div class="form-group">
+              <label for="syntax">Syntax Highlight:</label>
+              <select class="form-control" id="syntax" name="syntax">
+                <option value="plain">Plain</option>
+                <option value="cpp">C++</option>
+                <option value="python">Python</option>
+              </select>
+            </div>
 			<!-- Type -->
 			<div class="form-group">
               <label for="exposure">Type:</label>

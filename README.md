@@ -8,5 +8,6 @@ It's not finished so don't use it yet!
 - Dynatable (v0.3.1) Link: https://www.dynatable.com/
 - SyntaxHighlighter (v3.0.83) http://alexgorbatchev.com/SyntaxHighlighter/
 - Chosen (v1.5.1) Link: https://harvesthq.github.io/chosen/
+
 And many more...
 (I'm saying "many more", because I probably missed something)

@@ -34,10 +34,33 @@
 			<!-- Syntax Highlight -->
 	        <div class="form-group">
               <label for="syntax">Syntax Highlight:</label>
-              <select data-placeholder="None" class="form-control chosen-select" id="syntax" name="syntax" tabindex="2">
-                <option value="plain">Plain</option>
-                <option value="cpp">C++</option>
-                <option value="python">Python</option>
+              <select data-placeholder="None" class="form-control chosen-select" id="syntax" name="syntax">
+			    <option value="plain">Plain</option>
+			    <option value="applescript">AppleScript</option>
+				<option value="as3">ActionScript3 (AS3)</option>
+				<option value="bash">Bash</option>
+				<option value="cf">ColdFusion</option>
+				<option value="cpp">C++</option>
+				<option value="csharp">C#</option>
+				<option value="css">CSS</option>
+				<option value="delphi">Delphi</option>
+				<option value="diff">Diff</option>
+				<option value="erlang">Erlang</option>
+				<option value="groovy">Groovy</option>
+				<option value="java">Java</option>
+				<option value="javafx">JavaFX</option>
+				<option value="jscript">JScript</option>
+				<option value="perl">Perl</option>
+				<option value="php">Php</option>
+				<option value="powershell">PowerShell</option>
+				<option value="python">Python</option>
+				<option value="ruby">Ruby</option>
+				<option value="sass">Sass</option>
+				<option value="scala">Scala</option>
+				<option value="sql">Sql</option>
+				<option value="vb">VB</option>
+				<option value="xml">Xml</option>
+                
               </select>
             </div>
 			<!-- Type -->

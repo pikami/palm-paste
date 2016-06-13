@@ -7,10 +7,17 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  
   <script type="text/javascript" src="js/jquery.dynatable.js"></script>
   <link href="css/jquery.dynatable.css" rel="stylesheet">
-  <script>$(document).ready(function(){$('#tablepastes').dynatable();});</script>
+  
+  <link href="css/chosen.css" rel="stylesheet">
+  <script src="js/chosen.jquery.js" type="text/javascript"></script>
+  <script src="js/chosen.proto.js" type="text/javascript"></script>
+  
+  <script>$(document).ready(function(){
+	$('#tablepastes').dynatable();
+	$(".chosen-select").chosen();
+  });</script>
   
   <!-- Highlight scripts -->
   <?php include "includes/highlight.php"; ?>

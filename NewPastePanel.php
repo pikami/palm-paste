@@ -34,7 +34,7 @@
 			<!-- Syntax Highlight -->
 	        <div class="form-group">
               <label for="syntax">Syntax Highlight:</label>
-              <select class="form-control" id="syntax" name="syntax">
+              <select data-placeholder="None" class="form-control chosen-select" id="syntax" name="syntax" tabindex="2">
                 <option value="plain">Plain</option>
                 <option value="cpp">C++</option>
                 <option value="python">Python</option>

@@ -13,9 +13,18 @@ if(isset($uid)){
 			die();
 		}
 		echo "<h1>".htmlspecialchars($result["title"], ENT_QUOTES, 'UTF-8')."</h1>";
+		//
+		$owner = GetUserByID($result["owner"]);
+		echo "<h5>";
+		if($owner[1] == -1)
+			echo "Posted by: <b>Guest</b>";
+		else echo "Posted by: <b>".htmlspecialchars($owner[1])."</b>";
+		echo ", at ".date('Y-m-d',$result["created"])."</h5>";
+		//
 		echo "<pre class=\"brush: ".$_HL."\">";
 		echo htmlspecialchars($result["text"], ENT_QUOTES, 'UTF-8')."</pre><pb>";
-		echo "<textarea class=\"form-control\" rows=\"5\" disabled=\"true\">".htmlspecialchars($result["text"], ENT_QUOTES, 'UTF-8')."</textarea>";
+		echo "<label for=\"rawtext\">Raw text:</label>";
+		echo "<textarea id=\"rawtext\" class=\"form-control\" rows=\"10\">".htmlspecialchars($result["text"], ENT_QUOTES, 'UTF-8')."</textarea>";
 	}
 	else echo "Paste does not exist";
 	$conn = null;

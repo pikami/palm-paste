@@ -8,6 +8,12 @@ if(isset($uid)){
 	$stmt = $conn->query('SELECT * FROM pastes WHERE uid="'.$uid.'"');
 	if($result = $stmt->fetch(PDO::FETCH_ASSOC)){
 		$conn = null;
+		if($result["expire"]<time()){
+			//This paste is expired but not removed
+			include "cronjob.php";
+			RemoveExpiredPastes();
+			die();
+		}
 		if($result["exposure"]==2 && isset($_COOKIE["pp_sid"]) && isset($_COOKIE["pp_skey"]) && $result["owner"]!=GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"])){
 			echo "<h1>This paste is private</h1>";
 			die();
@@ -19,7 +25,17 @@ if(isset($uid)){
 		if($owner[1] == -1)
 			echo "Posted by: <b>Guest</b>";
 		else echo "Posted by: <b>".htmlspecialchars($owner[1])."</b>";
-		echo ", at ".date('Y-m-d',$result["created"])."</h5>";
+		echo ", at ".date('Y-m-d',$result["created"]).", it will expire <b>";
+		if($result["expire"]==0) printf('Never');
+		else{
+			$expire = ($result["expire"]-time())/3600;
+			if($expire>24){
+				printf(round($expire/24).' days from now');
+			} else if($expire>=1)
+				printf(round($expire).' hours from now');
+			else printf(round($expire*60).' minutes from now');
+		}
+		echo "</b></h5>";
 		//
 		echo "<pre class=\"brush: ".$_HL."\">";
 		echo htmlspecialchars($result["text"], ENT_QUOTES, 'UTF-8')."</pre><pb>";

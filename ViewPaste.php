@@ -8,7 +8,7 @@ if(isset($uid)){
 	$stmt = $conn->query('SELECT * FROM pastes WHERE uid="'.$uid.'"');
 	if($result = $stmt->fetch(PDO::FETCH_ASSOC)){
 		$conn = null;
-		if($result["expire"]<time()){
+		if($result["expire"]!=0 && $result["expire"]<time()){
 			//This paste is expired but not removed
 			include "cronjob.php";
 			RemoveExpiredPastes();

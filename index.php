@@ -20,7 +20,7 @@
   });</script>
   
   <!-- Highlight scripts -->
-  <?php include "includes/highlight.php"; ?>
+  <?php include_once "includes/highlight.php"; ?>
 </head>
 <body>
 <!-- NavBar -->
@@ -36,7 +36,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
 	  <?php
-	    include "includes/user.php";
+	    include_once "includes/user.php";
 		$userID = -1;
 		if(isset($_COOKIE["pp_sid"]) && isset($_COOKIE["pp_skey"]))
 		  $userID = GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]);
@@ -98,22 +98,22 @@
 <?php
 if (isset($_GET["page"])){
   if($_GET["page"] == "create"){
-    include "NewPaste.php";
+    include_once "NewPaste.php";
   } else if($_GET["page"] == "mypastes"){
-    include "MyPastes.php";
+    include_once "MyPastes.php";
   } else if($_GET["page"] == "login"){
-    include "login.php";
+    include_once "login.php";
   } else if($_GET["page"] == "logout"){
 	  header("Location: login.php?logout=1");
 	  die();
   } else if($_GET["page"] == "signup"){
-	  include "signup.php";
+	  include_once "signup.php";
   } else {
 	  $uid = $_GET["page"];
-	  include "ViewPaste.php";
+	  include_once "ViewPaste.php";
   }
 } else {
-  include "NewPaste.php";
+  include_once "NewPaste.php";
 }
 ?>
 </body>

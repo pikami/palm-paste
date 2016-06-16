@@ -1,6 +1,7 @@
 <?php
 include_once "config/config.php";
 function RemoveExpiredPastes(){
+	$conn = GetConnectionToDB();
 	$time = time();
 	$stmt = $conn->prepare("DELETE from `pastes` where `expire`<:time and `expire`>0");
 	$stmt->bindValue(':time', $time);

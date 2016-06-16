@@ -2,8 +2,9 @@
 	<div class="panel panel-default">
 		<div class="panel-body">
 <?php
-include "config/config.php";
+include_once "config/config.php";
 include_once "includes/user.php";
+$conn = GetConnectionToDB();
 if(GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]) == -1){
 	printf('<h2>You must be loged in to see your pastes!</h2>');
 	$conn = null;

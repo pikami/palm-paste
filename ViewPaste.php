@@ -3,18 +3,20 @@
 		<div class="panel-body">
 <?php
 if(isset($uid)){
-	include "config/config.php";
+	include_once "config/config.php";
 	include_once "includes/user.php";
+	$conn = GetConnectionToDB();
 	$stmt = $conn->query('SELECT * FROM pastes WHERE uid="'.$uid.'"');
 	if($result = $stmt->fetch(PDO::FETCH_ASSOC)){
 		$conn = null;
 		if($result["expire"]!=0 && $result["expire"]<time()){
 			//This paste is expired but not removed
-			include "cronjob.php";
+			echo "<h1>This paste just expired</h1>";
+			include_once "cronjob.php";
 			RemoveExpiredPastes();
 			die();
 		}
-		if($result["exposure"]==2 && isset($_COOKIE["pp_sid"]) && isset($_COOKIE["pp_skey"]) && $result["owner"]!=GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"])){
+		if($result["exposure"]==2 && $result["owner"]!=0 && isset($_COOKIE["pp_sid"]) && isset($_COOKIE["pp_skey"]) && $result["owner"]!=GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"])){
 			echo "<h1>This paste is private</h1>";
 			die();
 		}

@@ -6,7 +6,8 @@
 	  $uid = $_GET["page"];
 	  echo '<script type="text/javascript" src="js/SyntaxHighlighter/shCore.js"></script>';
 	  //
-	  include "config/config.php";
+	  include_once "config/config.php";
+	  $conn = GetConnectionToDB();
 	  $stmt = $conn->query('SELECT highlight FROM pastes WHERE uid="'.$uid.'"');
 	  if($result = $stmt->fetch(PDO::FETCH_ASSOC)){
 		$conn = null;

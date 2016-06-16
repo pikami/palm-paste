@@ -1,8 +1,8 @@
 <?php
-include "config/config.php";
+include_once "config/config.php";
 
 function generate_uid () {
-	global $conn;
+	$conn = GetConnectionToDB();
 	$name = '';
 	// We start at N retries, and --N until we give up
 	$tries = 500;
@@ -22,6 +22,7 @@ function generate_uid () {
 		$result = $q->fetchColumn();
 	// If it does, generate a new uid
 	} while($result > 0);
+	$conn = null;
 	return $name;
 }
 
@@ -35,7 +36,7 @@ if(isset($_POST["type"])){
 		if(isset($_POST["title"]))
 			$title = $_POST["title"];
 		if(isset($_POST["exposure"]) && is_numeric($_POST["exposure"]))
-			$$exposure = $_POST["exposure"];
+			$exposure = $_POST["exposure"];
 		$uid = generate_uid();
 		$created = time();
 		$expire = 0;
@@ -52,6 +53,7 @@ if(isset($_POST["type"])){
 			$owner = GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]);
 		}
 		/* Add paste to database */
+		$conn = GetConnectionToDB();
 		$QuerySTR = "INSERT INTO pastes (uid,title,text,created,expire,exposure,owner,highlight)
 			VALUES (:uid, :tit, :txt, :cre, :exp, :exposure, :own, :hl)";
 		$stmt = $conn->prepare($QuerySTR);
@@ -69,5 +71,4 @@ if(isset($_POST["type"])){
 		die();
 	}
 }
-$conn = null;
 ?>

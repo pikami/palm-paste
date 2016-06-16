@@ -1,6 +1,7 @@
 <?php
 function GetUsersIDBySession($sid,$skey){
-	include "config/config.php";
+	include_once "config/config.php";
+	$conn = GetConnectionToDB();
 	$stmt = $conn->prepare("SELECT uid FROM sessions WHERE id=:sid AND skey=:skey");
 	$stmt->bindParam(':skey', $skey);
 	$stmt->bindParam(':sid', $sid);
@@ -14,7 +15,8 @@ function GetUsersIDBySession($sid,$skey){
 	}
 }
 function LogOutUserBySession($sid,$skey){
-	include "config/config.php";
+	include_once "config/config.php";
+	$conn = GetConnectionToDB();
 	$stmt = $conn->prepare("DELETE FROM sessions WHERE id=:sid AND skey=:skey");
 	$stmt->bindParam(':skey', $skey);
 	$stmt->bindParam(':sid', $sid);
@@ -27,7 +29,8 @@ function UnsetBrowserCookies(){
 	setcookie("pp_skey", '', time() - 3600);
 }
 function GetUserByID($id){
-	include "config/config.php";
+	include_once "config/config.php";
+	$conn = GetConnectionToDB();
 	$stmt = $conn->prepare("SELECT * FROM users WHERE id=:id");
 	$stmt->bindParam(':id', $id);
 	$stmt->execute();

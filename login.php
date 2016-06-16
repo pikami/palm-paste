@@ -8,7 +8,7 @@ function generate_skey(){
         return $key;
 }
 if(isset($_GET["logout"])){
-	include "includes/user.php";
+	include_once "includes/user.php";
 	if(isset($_COOKIE["pp_sid"]) && isset($_COOKIE["pp_skey"])){
 		LogOutUserBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]);
 		UnsetBrowserCookies();
@@ -23,7 +23,8 @@ if(isset($_GET["logout"])){
 		if(isset($_POST["remember"]) && $_POST["remember"]=="on")
 			$remember = 1;
 		//Try to login
-		include "config/config.php";
+		include_once "config/config.php";
+		$conn = GetConnectionToDB();
 		$stmt = $conn->prepare('SELECT * FROM users WHERE user=?');
 		$stmt->execute(array($user));
 		if($result = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -56,7 +57,8 @@ if(isset($_GET["logout"])){
 		$pwd = $_POST["pwd"];
 		$hash = password_hash($pwd ,CRYPT_BLOWFISH);
 		//Does this user exist
-		include "config/config.php";
+		include_once "config/config.php";
+		$conn = GetConnectionToDB();
 		$stmt = $conn->prepare('SELECT * FROM users WHERE user=?');
 		$stmt->execute(array($user));
 		if($result = $stmt->fetch(PDO::FETCH_ASSOC)){

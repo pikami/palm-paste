@@ -42,4 +42,18 @@ function GetUserByID($id){
 		return array(-1,-1,-1,-1);
 	}
 }
+function GetUserIDByName($name){
+	include_once "config/config.php";
+	$conn = GetConnectionToDB();
+	$stmt = $conn->prepare("SELECT * FROM users WHERE user=:name");
+	$stmt->bindParam(':name', $name);
+	$stmt->execute();
+	if($result = $stmt->fetch()){
+		$conn = null;
+		return $result[0];
+	} else {
+		$conn = null;
+		return -1;
+	}
+}
 ?>

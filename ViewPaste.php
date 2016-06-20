@@ -26,7 +26,7 @@ if(isset($uid)){
 		echo "<h5>";
 		if($owner[1] == -1)
 			echo "Posted by: <b>Guest</b>";
-		else echo "Posted by: <b>".htmlspecialchars($owner[1])."</b>";
+		else echo "Posted by: <b><a href=\"u/".htmlspecialchars($owner[1])."\">".htmlspecialchars($owner[1])."</a></b>";
 		echo ", at ".date('Y-m-d',$result["created"]).", it will expire <b>";
 		if($result["expire"]==0) printf('Never');
 		else{

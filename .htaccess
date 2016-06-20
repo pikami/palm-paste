@@ -1,5 +1,8 @@
 Options +FollowSymlinks
 RewriteEngine on
+
+#Change the "/paste/" to the root of your palm paste
 RewriteBase "/paste/"
+
 RewriteRule ^u/([A-Za-z0-9-]+)/?$ index.php?user=$1
 RewriteRule ^([A-Za-z0-9-]+)/?$ index.php?page=$1

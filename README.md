@@ -18,7 +18,8 @@ So we'll just assume you already have them all running well.
 2. Create a user and database for palm-paste
 3. Take the 'palm-paste.sql' and import it to your database.
 4. Edit configuration settings in config/config.php
-5. Done!
+5. Change the "RewriteBase" setting in ".htaccess" file to the root of your palm-paste installation
+6. Done!
 
 * To ensure that pastes with an expiration set get cleaned up, define the cron key in the config and set up a cronjob, for example:
   * `*/5 * * * * curl --silent http://your-site.com/palm-paste/cronjob.php?key=[key]`

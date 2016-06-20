@@ -1,3 +1,9 @@
+<?php
+if(isset($_GET["page"]) && $_GET["page"] == "login" && isset($_POST["type"]) && $_POST["type"]=="login"){
+	include_once "login.php";
+	die();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,13 +124,14 @@ if (isset($_GET["page"])){
   } else if($_GET["page"] == "login"){
     include_once "login.php";
   } else if($_GET["page"] == "logout"){
-	  header("Location: login.php?logout=1");
-	  die();
+	echo '<center><h4>Please wait...</h4></center>';
+	echo '<meta http-equiv="refresh" content="2;url=login.php?logout=1">';
+	die();
   } else if($_GET["page"] == "signup"){
-	  include_once "signup.php";
+	include_once "signup.php";
   } else {
-	  $uid = $_GET["page"];
-	  include_once "ViewPaste.php";
+	$uid = $_GET["page"];
+	include_once "ViewPaste.php";
   }
 } else if (isset($_GET["user"])){
 	include_once "UserPage.php";

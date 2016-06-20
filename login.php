@@ -13,7 +13,8 @@ if(isset($_GET["logout"])){
 		LogOutUserBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]);
 		UnsetBrowserCookies();
 	}
-	header("Location: index.php");
+	echo '<center><h4>Please wait...</h4></center>';
+	echo '<meta http-equiv="refresh" content="2;url=index.php">';
 } else if(isset($_POST["type"])) {
 	if($_POST["type"]=="login" && isset($_POST["user"]) && isset($_POST["pwd"])){
 		//Get options
@@ -44,7 +45,8 @@ if(isset($_GET["logout"])){
 					setcookie("pp_sid", $sid); //Dies when browser closes
 					setcookie("pp_skey", $skey); //Dies when browser closes
 				}
-				header("Location: index.php");
+				echo '<center><h4>Please wait...</h4></center>';
+				echo '<meta http-equiv="refresh" content="2;url=index.php">';
 				die();
 			}
 			else echo "No!";		//TODO: Wrong password
@@ -78,7 +80,8 @@ if(isset($_GET["logout"])){
 		$stmt->bindParam(':user', $user);
 		$stmt->bindParam(':pwd', $hash);
 		if($stmt->execute()){
-			header("Location: login");
+			echo '<center><h4>Please wait...</h4></center>';
+			echo '<meta http-equiv="refresh" content="2;url=login">';
 		} else {
 			echo "Fail!";
 		}

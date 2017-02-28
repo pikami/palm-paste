@@ -1,0 +1,10 @@
+# replace all occurrences of "paste" with the root of your palm-paste installation
+location /paste {
+    if ( $uri !~ ^/paste/(index\.php|css|js|robots\.txt|favicon\.ico|) ) {
+        rewrite ^/paste/u/(.*)$ /paste/index.php?user=$1? last;
+        rewrite ^/paste/(.*)$ /paste/index.php?page=$1? last;
+    }
+    if ( $uri ~* ^/paste/u/(css|js) ) {
+        rewrite ^/paste/u/(.*)$ /paste/u/$1? last;
+    }
+}

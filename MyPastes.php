@@ -41,7 +41,12 @@ if($stmt->rowCount()>0){
 		//Paste url
 		printf('<td style="text-align: right;"><a href="'.htmlspecialchars($row["uid"], ENT_QUOTES, 'UTF-8').'">'.htmlspecialchars($row["uid"], ENT_QUOTES, 'UTF-8').'</a></td>');
 		//Actions
-		printf('<td style="text-align: right;"><a href="delete/'.htmlspecialchars($row["uid"], ENT_QUOTES, 'UTF-8').'"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></s></td></tr>');
+		printf('<td style="text-align: right;">');
+		  //delete paste
+		printf('<a href="delete/'.htmlspecialchars($row["uid"], ENT_QUOTES, 'UTF-8').'"><span class="glyphicon glyphicon-trash" title="Delete paste" aria-hidden="true"></span>');
+		  //edit paste
+		printf('<a href="edit/'.htmlspecialchars($row["uid"], ENT_QUOTES, 'UTF-8').'"><span class="glyphicon glyphicon-edit" title="Edit paste" aria-hidden="true"></span>');
+		printf('</td></tr>');
 	}
 	printf('</tbody></talbe>');
 } else {

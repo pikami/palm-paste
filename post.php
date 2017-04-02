@@ -69,6 +69,59 @@ if(isset($_POST["type"])){
 		$conn = null; //close connection to database
 		header("Location: ".$uid);
 		die();
+	} else if($_POST["type"]=="edit_paste" && isset($_POST["text"])){
+		/* Set paste details */
+		$title = "Untitled";
+		$text = $_POST["text"];
+		$exposure = 0;
+		if(isset($_POST["title"]))
+			$title = $_POST["title"];
+		if(isset($_POST["exposure"]) && is_numeric($_POST["exposure"]))
+			$exposure = $_POST["exposure"];
+		$uid = $_POST["uid"];
+		$created = time();
+		$expire = 0;
+		if(isset($_POST["expire"]) && is_numeric($_POST["expire"]))
+			$expire = $created + $_POST["expire"];
+		$owner = 0;
+		$syntax = "plain";
+		if(isset($_POST["syntax"]))
+			$syntax=$_POST["syntax"];
+		if(isset($_POST["asguest"]) && $_POST["asguest"]=="on")
+			$owner = 0;
+		else if(isset($_COOKIE["pp_sid"]) && isset($_COOKIE["pp_skey"])){
+			include "includes/user.php";
+			$owner = GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]);
+		}
+		/* Get the owner of the paste */
+		$paste_owner = 0;
+		$conn = GetConnectionToDB();
+		$stmt = $conn->query('SELECT owner FROM pastes WHERE uid="'.$uid.'"');
+		if($result = $stmt->fetch(PDO::FETCH_ASSOC)){
+			$paste_owner = $result['owner'];
+		}
+		/* Edit paste in database */
+		if($owner === $paste_owner && $owner !== 0){
+			$QuerySTR = " UPDATE pastes SET title=:tit,text=:txt,created=:cre,expire=:exp,exposure=:exposure,owner=:own,highlight=:hl
+				WHERE uid=:uid";
+			$stmt = $conn->prepare($QuerySTR);
+			$stmt->bindParam(':exp', $expire);
+			$stmt->bindParam(':uid', $uid);
+			$stmt->bindParam(':tit', $title);
+			$stmt->bindParam(':txt', $text);
+			$stmt->bindParam(':cre', $created);
+			$stmt->bindParam(':exposure', $exposure);
+			$stmt->bindParam(':own', $owner);
+			$stmt->bindParam(':hl', $syntax);
+			$stmt->execute();
+			$conn = null; //close connection to database
+			header("Location: ".$uid);
+			die();
+		} else {
+			$conn = null; //close connection to database
+			echo "<h1>This paste does not belong to you!</h1>";
+			die();
+		}
 	}
 }
 ?>

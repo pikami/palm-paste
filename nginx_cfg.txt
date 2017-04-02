@@ -3,6 +3,7 @@ location /paste {
 	if ( $uri !~ ^/paste/(index\.php|css|js|robots\.txt|favicon\.ico|$) ) {
 		rewrite ^/paste/u/(.*)$ /paste/index.php?user=$1? last;
 		rewrite ^/paste/delete/(.*)$ /paste/delete.php?id=$1? last;
+		rewrite ^/paste/([^/]+)/(.*)$ /paste/index.php?page=$1&id=$2? last;
 		rewrite ^/paste/(.*)$ /paste/index.php?page=$1? last;
 	}
 	if ( $uri ~* ^/paste/u/(css|js) ) {

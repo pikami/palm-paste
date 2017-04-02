@@ -12,7 +12,7 @@ if(isset($_GET["page"]) && $_GET["page"] == "login" && isset($_POST["type"]) && 
   <?php
   echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
   $dir = "";
-  if (isset($_GET["user"]))$dir="../";
+  if (isset($_GET["user"]) || isset($_GET["page"]) && $_GET["page"]=="edit")$dir="../";
   
   echo '<link rel="stylesheet" href="'.$dir.'css/bootstrap.min.css">';
   echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>';
@@ -41,7 +41,7 @@ if(isset($_GET["page"]) && $_GET["page"] == "login" && isset($_POST["type"]) && 
     <div class="navbar-header">
 	<?php
 	  $dir = "";
-	  if (isset($_GET["user"]))$dir="../";
+	  if (isset($_GET["user"]) || isset($_GET["page"]) && $_GET["page"]=="edit")$dir="../";
 	  echo '<a class="navbar-brand" href="'.$dir.'index.php">Palm-Paste</a>';
 	?>
     </div>
@@ -54,7 +54,7 @@ if(isset($_GET["page"]) && $_GET["page"] == "login" && isset($_POST["type"]) && 
 	  <?php
 		include_once "includes/user.php";
 		$dir = "";
-		if (isset($_GET["user"]))$dir="../";
+		if (isset($_GET["user"]) || isset($_GET["page"]) && $_GET["page"]=="edit")$dir="../";
 		$userID = -1;
 		if(isset($_COOKIE["pp_sid"]) && isset($_COOKIE["pp_skey"]))
 		  $userID = GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]);
@@ -129,6 +129,8 @@ if (isset($_GET["page"])){
 	die();
   } else if($_GET["page"] == "signup"){
 	include_once "signup.php";
+  } else if($_GET["page"] == "edit"){
+	include_once "edit.php";
   } else {
 	$uid = $_GET["page"];
 	include_once "ViewPaste.php";

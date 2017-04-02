@@ -1,21 +1,41 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <form role="form" method="post" action="post.php" onsubmit="document.getElementById('submit').disabled=true;document.getElementById('submit').value='Please wait...';">
+<?php
+	$edit_mode = false;
+	if(isset($_GET['page']) && $_GET['page']=='edit'){
+		$edit_mode = true;
+		printf('You are editing paste '.$_GET['id']);
+		printf('<form role="form" method="post" action="../post.php" onsubmit="document.getElementById(\'submit\').disabled=true;document.getElementById(\'submit\').value=\'Please wait...\';">');
+	}else printf('<form role="form" method="post" action="post.php" onsubmit="document.getElementById(\'submit\').disabled=true;document.getElementById(\'submit\').value=\'Please wait...\';">');
+?>
       <div class="form-group">
         <label for="title">Paste title:</label>
-        <input type="title" class="form-control" id="title" name="title">
+		<?php
+			if($edit_mode == true){
+				printf('<input type="title" class="form-control" value="'.$row['title'].'" id="title" name="title">');
+			} else printf('<input type="title" class="form-control" id="title" name="title">');
+		?>
       </div>
       <div class="form-group">
         <label for="text">New paste:</label>
-        <textarea class="form-control" rows="5" id="text" name="text"></textarea>
+		<?php
+			if($edit_mode == true){
+				printf('<textarea class="form-control" rows="5" id="text" name="text">'.$row['text'].'</textarea>');
+			} else printf('<textarea class="form-control" rows="5" id="text" name="text"></textarea>');
+		?>
       </div>
-	  <input type='hidden' name='type' value='paste'></input>
+	  <?php
+		if($edit_mode == true){
+		  printf("<input type='hidden' name='type' value='edit_paste'></input>");
+		  printf("<input type='hidden' name='uid' value='".$row['uid']."'></input>");
+		} else printf("<input type='hidden' name='type' value='paste'></input>");
+	  ?>
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-6">
 		    <!-- Posting as guest -->
 			<div class="checkbox">
-			  <label><input type="checkbox" name="asguest">Post as guest</label>
+				<label><input type="checkbox" name="asguest">Post as guest</label>
 			</div>
 	        <!-- Submit -->
             <button type="submit" class="btn btn-default">Submit</button>
@@ -36,6 +56,10 @@
 	        <div class="form-group">
               <label for="syntax">Syntax Highlight:</label>
               <select data-placeholder="None" class="form-control chosen-select" id="syntax" name="syntax">
+			    <?php
+				  if($edit_mode == true)
+					  print '<option value="'.$row['highlight'].'">Current ('.$row['highlight'].')</option>';
+				?>
 			    <option value="plain">Plain</option>
 			    <option value="applescript">AppleScript</option>
 				<option value="as3">ActionScript3 (AS3)</option>
@@ -61,23 +85,28 @@
 				<option value="sql">Sql</option>
 				<option value="vb">VB</option>
 				<option value="xml">Xml</option>
-                
               </select>
             </div>
 			<!-- Type -->
 			<div class="form-group">
               <label for="exposure">Type:</label>
               <select class="form-control" id="exposure" name="exposure">
-                <option value="0">Public</option>
-                <option value="1">Unlisted</option>
-				<?php
+                <?php
+				  print '<option value="0">Public</option>';
+				  if($edit_mode == true && $row['exposure'] == 1)
+					print '<option selected="selected" value="1">Unlisted</option>';
+				  else print '<option value="1">Unlisted</option>';
 				  include_once "includes/user.php";
 				  $userID = -1;
 		          if(isset($_COOKIE["pp_sid"]) && isset($_COOKIE["pp_skey"]))
 		            $userID = GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]);
 				  if($userID==-1)
 				    print '<option value="2" disabled>Private (Members only)</option>';
-				  else print '<option value="2" >Private</option>';
+				  else {
+					if($edit_mode === true && $row['exposure'] === 2)
+					  print '<option selected="selected" value="2" >Private</option>';
+				    else print '<option value="2" >Private</option>';
+				  }
 				?>
               </select>
             </div>

@@ -12,7 +12,8 @@ if(GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]) == -1){
 	die();
 }
 $stmt = $conn->prepare('SELECT * FROM pastes WHERE owner=:own');
-$stmt->bindParam(':own', GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]));
+$own = GetUsersIDBySession($_COOKIE["pp_sid"],$_COOKIE["pp_skey"]);
+$stmt->bindParam(':own', $own);
 $stmt->execute();
 if($stmt->rowCount()>0){
 	echo "<table id=\"tablepastes\" class=\"table table-striped\" style=\"width:100%\">";

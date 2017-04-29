@@ -33,7 +33,7 @@ if(isset($_POST["type"])){
 		$title = "Untitled";
 		$text = $_POST["text"];
 		$exposure = 0;
-		if(isset($_POST["title"]))
+		if(isset($_POST["title"]) && $_POST["title"]!="")
 			$title = $_POST["title"];
 		if(isset($_POST["exposure"]) && is_numeric($_POST["exposure"]))
 			$exposure = $_POST["exposure"];

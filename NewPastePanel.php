@@ -20,7 +20,7 @@
         <label for="text">New paste:</label>
 		<?php
 			if($edit_mode == true){
-				printf('<textarea class="form-control" rows="5" id="text" name="text">'.$row['text'].'</textarea>');
+				echo '<textarea class="form-control" rows="5" id="text" name="text">'.$row['text'].'</textarea>';
 			} else printf('<textarea class="form-control" rows="5" id="text" name="text"></textarea>');
 		?>
       </div>

@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - '8080:80'
+    volumes:
+      - ./:/var/www/html
+      - ./nginx_cfg.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php-fpm
+
+  php-fpm:
+    build:
+      dockerfile: "php-fmt.Dockerfile"
+    environment:
+      SQL_HOST: db
+    volumes:
+      - ./:/var/www/html
+
+  db:
+    image: mysql:5.6
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: 1asd6ad151g16hj161m6u16m1ik187u1y6m1
+      MYSQL_DATABASE: palm-paste
+      MYSQL_USER: paste
+      MYSQL_PASSWORD: ckQgRJRhib74XMgVpzmn38uj1MrCcNnK7L9bc7zu
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80

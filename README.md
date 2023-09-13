@@ -6,18 +6,18 @@ It's in active development so stay tuned for updates.
 Also if you have any ideas you can contact me on twitter, I'm @pik4mi
 If you have any issues, file them here https://github.com/pikami/palm-paste/issues
 
-#Note
-Original development environment is Apache 2.4 + PHP5.6 + MySQL.
-Should work with Nginx and any PDO-compatible database.
+# Note
+Original development environment is Nginx + PHP5.6 + MySQL.
+Should work with Apache.
 
-#Install
+# Install
 For the purposes of this guide, we won't cover setting up Apache, PHP, MySQL, or Nginx.
 So we'll just assume you already have them all running well.
 
 1. Download palm-paste from https://github.com/pikami/palm-paste/tags
 2. Create a user and database for palm-paste
 3. Take the 'palm-paste.sql' and import it to your database.
-4. Edit configuration settings in config/config.php
+4. Edit configuration settings in includes/config.php
 5. (For apache users) Change the "RewriteBase" setting in ".htaccess" file to the root of your palm-paste installation
 5. (For nginx users) add the block from nginx_cfg.txt to your nginx server config, replace all occurrences of "paste" with the root of your palm-paste installation
 6. Done!

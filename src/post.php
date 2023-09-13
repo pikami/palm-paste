@@ -1,5 +1,5 @@
 <?php
-include_once "config/config.php";
+include_once "includes/config.php";
 
 function generate_uid () {
 	$conn = GetConnectionToDB();
@@ -124,4 +124,3 @@ if(isset($_POST["type"])){
 		}
 	}
 }
-?>

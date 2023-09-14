@@ -12,7 +12,7 @@
       <label for="title">Paste title:</label>
       <?php
       if ($edit_mode == true) {
-        printf('<input type="title" class="form-control" value="' . $row['title'] . '" id="title" name="title">');
+        printf('<input type="title" class="form-control" value="' . $pasteInfo['title'] . '" id="title" name="title">');
       } else printf('<input type="title" class="form-control" id="title" name="title">');
       ?>
     </div>
@@ -20,14 +20,14 @@
       <label for="text">New paste:</label>
       <?php
       if ($edit_mode == true) {
-        echo '<textarea class="form-control" rows="5" id="text" name="text">' . $row['text'] . '</textarea>';
+        echo '<textarea class="form-control" rows="5" id="text" name="text">' . $pasteInfo['text'] . '</textarea>';
       } else printf('<textarea class="form-control" rows="5" id="text" name="text"></textarea>');
       ?>
     </div>
     <?php
     if ($edit_mode == true) {
       printf("<input type='hidden' name='type' value='edit_paste'></input>");
-      printf("<input type='hidden' name='uid' value='" . $row['uid'] . "'></input>");
+      printf("<input type='hidden' name='uid' value='" . $pasteInfo['uid'] . "'></input>");
     } else printf("<input type='hidden' name='type' value='paste'></input>");
     ?>
     <div class="container-fluid">
@@ -58,7 +58,7 @@
             <select data-placeholder="None" class="form-control chosen-select" id="syntax" name="syntax">
               <?php
               if ($edit_mode == true)
-                print '<option value="' . $row['highlight'] . '">Current (' . $row['highlight'] . ')</option>';
+                print '<option value="' . $pasteInfo['highlight'] . '">Current (' . $pasteInfo['highlight'] . ')</option>';
               ?>
               <option value="plain">Plain</option>
               <option value="applescript">AppleScript</option>
@@ -93,7 +93,7 @@
             <select class="form-control" id="exposure" name="exposure">
               <?php
               print '<option value="0">Public</option>';
-              if ($edit_mode == true && $row['exposure'] == 1)
+              if ($edit_mode == true && $pasteInfo['exposure'] == 1)
                 print '<option selected="selected" value="1">Unlisted</option>';
               else print '<option value="1">Unlisted</option>';
               include_once "includes/user.php";
@@ -103,7 +103,7 @@
               if ($userID == -1)
                 print '<option value="2" disabled>Private (Members only)</option>';
               else {
-                if ($edit_mode === true && $row['exposure'] === 2)
+                if ($edit_mode === true && $pasteInfo['exposure'] === 2)
                   print '<option selected="selected" value="2" >Private</option>';
                 else print '<option value="2" >Private</option>';
               }

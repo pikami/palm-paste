@@ -1,10 +1,10 @@
+<?php include_once "includes/config.php"; ?>
+
 <nav class="navbar navbar-inverse">
   <div class="container">
     <div class="navbar-header">
       <?php
-      $dir = "";
-      if (isset($_GET["user"]) || isset($_GET["page"]) && $_GET["page"] == "edit") $dir = "../";
-      echo '<a class="navbar-brand" href="' . $dir . '.">Palm-Paste</a>';
+      echo '<a class="navbar-brand" href="' . $BASE_DIR . '.">Palm-Paste</a>';
       ?>
     </div>
     <ul class="nav navbar-nav">
@@ -15,13 +15,11 @@
     <ul class="nav navbar-nav navbar-right">
       <?php
       include_once "includes/user.php";
-      $dir = "";
-      if (isset($_GET["user"]) || isset($_GET["page"]) && $_GET["page"] == "edit") $dir = "../";
       $userID = -1;
       if (isset($_COOKIE["pp_sid"]) && isset($_COOKIE["pp_skey"]))
         $userID = GetUsersIDBySession($_COOKIE["pp_sid"], $_COOKIE["pp_skey"]);
       if ($userID == -1) {
-        echo "<li><a href=\"" . $dir . "signup\"><span class=\"glyphicon glyphicon-user\"></span> Sign Up</a></li>";
+        echo "<li><a href=\"" . $BASE_DIR . "signup\"><span class=\"glyphicon glyphicon-user\"></span> Sign Up</a></li>";
         echo "<li><a data-toggle=\"modal\" data-target=\"#LoginPopup\" href=\"#\"><span class=\"glyphicon glyphicon-log-in\"></span> Login</a></li>";
       } else {
         $user = GetUserByID($userID);
@@ -29,8 +27,8 @@
 			<li class="dropdown">
 				<a class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" href="#"> ' . htmlspecialchars($user[1], ENT_QUOTES, 'UTF-8') . '<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="' . $dir . 'mypastes">My pastes</a></li>
-					<li><a href="' . $dir . 'logout">Logout</a></li>
+					<li><a href="' . $BASE_DIR . 'mypastes">My pastes</a></li>
+					<li><a href="' . $BASE_DIR . 'logout">Logout</a></li>
 				</ul>
 			</li>
 			';
@@ -52,7 +50,7 @@
       <div class="modal-body">
         <!-- Login form -->
         <?php
-        echo '<form role="form" method="POST" action="' . $dir . 'login">';
+        echo '<form role="form" method="POST" action="' . $BASE_DIR . 'login">';
         ?>
         <div class="form-group">
           <label for="user">Username:</label>

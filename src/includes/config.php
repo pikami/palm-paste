@@ -11,3 +11,5 @@ function GetConnectionToDB() {
 }
 //========CRON_JOBS=========//
 $CRON_ExpireKey = getenv('CRON_EXPIREKEY') ?: "b1g51bf6g";
+//=========GENERAL==========//
+$BASE_DIR = "/";

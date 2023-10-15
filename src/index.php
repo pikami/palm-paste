@@ -22,7 +22,7 @@ if (isset($_GET["page"])) {
       break;
     case "logout":
       echo '<center><h4>Please wait...</h4></center>';
-      echo '<meta http-equiv="refresh" content="2;url=login.php?logout=1">';
+      echo '<meta http-equiv="refresh" content="2;url=login?logout=1">';
       die();
     case "signup":
       require "views/signup.php";

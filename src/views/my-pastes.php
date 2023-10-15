@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-3">
   <div class="panel panel-default">
     <div class="panel-body">
       <?php
@@ -49,8 +49,8 @@
           echo '<td style="text-align: left;">' . $expire . '</td>';
           echo '<td style="text-align: right;"><a href="' . htmlspecialchars($row["uid"], ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($row["uid"], ENT_QUOTES, 'UTF-8') . '</a></td>';
           echo '<td style="text-align: right;">';
-          echo '<a href="delete/' . htmlspecialchars($row["uid"], ENT_QUOTES, 'UTF-8') . '"><span class="glyphicon glyphicon-trash" title="Delete paste" aria-hidden="true"></span></a>';
-          echo '<a href="edit/' . htmlspecialchars($row["uid"], ENT_QUOTES, 'UTF-8') . '"><span class="glyphicon glyphicon-edit" title="Edit paste" aria-hidden="true"></span></a>';
+          echo '<a href="delete/' . htmlspecialchars($row["uid"], ENT_QUOTES, 'UTF-8') . '"><i class="bi bi-trash-fill" title="Delete paste" aria-hidden="true"></i></a>';
+          echo '<a href="edit/' . htmlspecialchars($row["uid"], ENT_QUOTES, 'UTF-8') . '"><i class="bi bi-pencil-fill" title="Edit paste" aria-hidden="true"></i></a>';
           echo '</td></tr>';
         }
 

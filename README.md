@@ -27,11 +27,10 @@ So we'll just assume you already have them all running well.
 * If you can't have cronjobs or your just to lazy - Don't wory, the pastes will expire if a user tries to view them after expiration time is over.
 
 # Things used to make this
-- Bootstrap (v3.3.6) Link: http://getbootstrap.com/
-- JQuery (v1.12.0) Link: https://jquery.com/
+- Bootstrap (v5.3) Link: https://getbootstrap.com
+- Bootstrap Icons (v1.11.1)  Link: https://github.com/twbs/icons
 - Dynatable (v0.3.1) Link: https://www.dynatable.com/
 - SyntaxHighlighter (v3.0.83) http://alexgorbatchev.com/SyntaxHighlighter/
-- Chosen (v1.5.1) Link: https://harvesthq.github.io/chosen/
 
 And many more...
 (I'm saying "many more", because I probably missed something)

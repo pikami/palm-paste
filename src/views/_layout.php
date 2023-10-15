@@ -7,7 +7,7 @@ if (!isset($content)) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
   <title>Palm-Paste Index</title>
@@ -16,21 +16,10 @@ if (!isset($content)) {
   echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
 
   echo '<link rel="stylesheet" href="' . $BASE_DIR . 'public/css/bootstrap.min.css">';
-  echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>';
+  echo '<link rel="stylesheet" href="' . $BASE_DIR . 'public/css/bootstrap-icons.css">';
 
+  echo '<script src="' . $BASE_DIR . 'public/js/popper.min.js"></script>';
   echo '<script src="' . $BASE_DIR . 'public/js/bootstrap.min.js"></script>';
-  echo '<script type="text/javascript" src="' . $BASE_DIR . 'public/js/jquery.dynatable.js"></script>';
-  echo '<link href="' . $BASE_DIR . 'public/css/jquery.dynatable.css" rel="stylesheet">';
-
-  echo '<link href="' . $BASE_DIR . 'public/css/chosen.css" rel="stylesheet">';
-  echo '<script src="' . $BASE_DIR . 'public/js/chosen.jquery.js" type="text/javascript"></script>';
-  echo '<script src="' . $BASE_DIR . 'public/js/chosen.proto.js" type="text/javascript"></script>';
-
-  echo "<script>$(document).ready(function(){
-    $('#tablepastes').dynatable();
-    $('.chosen-select').chosen();
-    });</script>";
-
   ?>
 </head>
 

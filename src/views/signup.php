@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-3">
   <div class="panel panel-default">
     <div class="panel-heading">Register</div>
     <div class="panel-body">
